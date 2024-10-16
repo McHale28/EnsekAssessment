@@ -1,8 +1,10 @@
-﻿using MeterReadingsApi.Services.UploadServices.Interfaces;
+﻿using Azure;
+using MeterReadingsApi.Services.UploadServices.Interfaces;
 using MeterReadingsApi.Storage.Entities;
 using MeterReadingsApi.Storage.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,8 +38,11 @@ namespace MeterReadingsApi.Services.UploadServices
                 return false;
             }
 
-            //Same as above, this will be slow for large files so would be better to do the 
+            //As above, this will be slow for large files so would be better to do the
             // check in a single db call.
+            //This will only check for earlier records that are already in the db, so there's a 
+            // potentially an issue as it's possible to upload readings where there is a later
+            // reading for that account in the same file
             var laterReadingExists = await _readingRepository
                                                 .ReadingExistsForAccountAtTimeOrLater(reading.AccountId,
                                                                                       reading.ReadingDateTime);
