@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace MeterReadingsApi.Services.Tests.UploadServices.FieldParsingServices
 {
     [TestClass]
-    public class AccountNumberParsingSerivceTests
+    public class AccountNumberParsingServiceTests
     {
-        private AccountNumberParsingSerivce _service;
+        private AccountNumberParsingService _service;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _service = new AccountNumberParsingSerivce();
+            _service = new AccountNumberParsingService();
         }
 
         [TestMethod]

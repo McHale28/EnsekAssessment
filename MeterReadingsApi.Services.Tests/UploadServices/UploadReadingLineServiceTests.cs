@@ -83,7 +83,7 @@ namespace MeterReadingsApi.Services.Tests.UploadServices
         }
 
         [TestMethod]
-        public async Task RetrunsFalseIfValidationFails()
+        public async Task ReturnsFalseIfValidationFails()
         {
             _validationResult = false;
 

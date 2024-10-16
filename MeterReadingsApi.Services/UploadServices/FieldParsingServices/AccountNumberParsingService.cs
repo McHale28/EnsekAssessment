@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MeterReadingsApi.Services.UploadServices.FieldParsingServices
 {
-    public class AccountNumberParsingSerivce : IAccountNumberParsingSerivce
+    public class AccountNumberParsingService : IAccountNumberParsingSerivce
     {
         public ParseResultModel<int> ParseAccountNumber(string input)
         {

@@ -34,6 +34,7 @@ namespace MeterReadingsApi.Services.Tests.UploadServices
 
             _inputLines = new List<string>()
             {
+                "HeaderLine",
                 "LineOne",
                 "LineTwo",
                 "LineThree"
@@ -60,9 +61,9 @@ namespace MeterReadingsApi.Services.Tests.UploadServices
                                                         int expectedSuccess,
                                                         int expectedFailure)
         {
-            _lineResults[_inputLines[0]] = onePasses;
-            _lineResults[_inputLines[1]] = twoPasses;
-            _lineResults[_inputLines[2]] = threePasses;
+            _lineResults[_inputLines[1]] = onePasses;
+            _lineResults[_inputLines[2]] = twoPasses;
+            _lineResults[_inputLines[3]] = threePasses;
 
             var actual = await _service.ProcessUpload(_inputContent);
 
@@ -71,7 +72,36 @@ namespace MeterReadingsApi.Services.Tests.UploadServices
         }
 
         [TestMethod]
-        public async Task MakesSaveAllChagnesCall()
+        public async Task DoesntMakeUploadLineCallForHeaderLine()
+        {
+            await _service.ProcessUpload(_inputContent);
+
+            _uploadLineService.Verify(
+                s => s.UploadLine(_inputLines[0]), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task OnlyUploadsDuplicateLinesOnce()
+        {
+            await _service.ProcessUpload("HeaderLine\nLineOne\nLineOne");
+
+            _uploadLineService.Verify(
+                s => s.UploadLine("LineOne"), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task TrimsUploadLines()
+        {
+            await _service.ProcessUpload("HeaderLine\nLineOne \n LineTwo  ");
+
+            _uploadLineService.Verify(
+                s => s.UploadLine("LineOne"), Times.Once);
+            _uploadLineService.Verify(
+                s => s.UploadLine("LineTwo"), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task MakesSaveAllChangesCall()
         {
             await _service.ProcessUpload(_inputContent);
 

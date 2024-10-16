@@ -25,7 +25,8 @@ namespace MeterReadingsApi.Services.UploadServices
 
         public async Task<UploadMeterReadingsResultsModel> ProcessUpload(string inputCsvContent)
         {
-            var lines = inputCsvContent.Split('\n');
+            //Skip the header line
+            var lines = inputCsvContent.Split('\n').Skip(1).Select(l => l.Trim()).Distinct();
 
             var errorsCount = 0;
             var successCount = 0;

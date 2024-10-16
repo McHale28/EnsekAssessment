@@ -8,7 +8,7 @@ namespace MeterReadingsApi.Services.UploadServices.FieldParsingServices.Models
 {
     public class ParseResultModel<T>
     {
-        public T Value { get; set; }
+        public T? Value { get; set; } = default;
         public bool Success { get; set; }
     }
 }

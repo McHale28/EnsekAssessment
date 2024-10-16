@@ -12,7 +12,7 @@ namespace MeterReadingsApi.Services.UploadServices.FieldParsingServices.Registra
     {
         public static IServiceCollection RegiserFieldParsingServices(this IServiceCollection services)
         {
-            services.AddTransient<IAccountNumberParsingSerivce, AccountNumberParsingSerivce>();
+            services.AddTransient<IAccountNumberParsingSerivce, AccountNumberParsingService>();
             services.AddTransient<IMeterReadValueParsingService, MeterReadValueParsingService>();
             services.AddTransient<IReadingDateTimeParsingService, ReadingDateTimeParsingService>();
 

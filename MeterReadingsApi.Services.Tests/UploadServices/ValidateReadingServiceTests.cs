@@ -58,7 +58,7 @@ namespace MeterReadingsApi.Services.Tests.UploadServices
         }
 
         [TestMethod]
-        public async Task ReturnsFalseIfNoAccountExitsts()
+        public async Task ReturnsFalseIfNoAccountExists()
         {
             _accountExitsResult = false;
 
@@ -78,7 +78,7 @@ namespace MeterReadingsApi.Services.Tests.UploadServices
         }
 
         [TestMethod]
-        public async Task ReturnsFalsIfInputIsNull()
+        public async Task ReturnsFalseIfInputIsNull()
         {
             var actual = await _service.ValidateReading(null);
 

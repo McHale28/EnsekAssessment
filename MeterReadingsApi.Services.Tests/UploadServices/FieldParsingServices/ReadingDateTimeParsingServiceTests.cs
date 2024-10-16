@@ -30,6 +30,8 @@ namespace MeterReadingsApi.Services.Tests.UploadServices.FieldParsingServices
         [DataRow(null, false, "0001-01-01 00:00:00")]
         public void ParsesInputCorrectly(string input, bool expectedSuccess, string expectedDateTimeValue)
         {
+            //This uses strings for the expected date time as the DataRow parameters
+            // have to be constants.
             var expectedDateTime = DateTime.Parse(expectedDateTimeValue);
 
             var actual = _service.ParseReadingDateTime(input);

@@ -32,6 +32,9 @@ namespace MeterReadingsApi.Services.UploadServices
                 return null;
             }
 
+            //This is not ideal for CSVs due to escaping. Would be more robust to use a 
+            // csv library but I had trouble getting CSV helper to be permissive enough
+            // of errors in the data
             var parts = readingLine.Split(",", StringSplitOptions.RemoveEmptyEntries);
 
             if (parts.Length < 3)

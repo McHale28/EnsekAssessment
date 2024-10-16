@@ -28,12 +28,16 @@ namespace MeterReadingsApi.Services.UploadServices
                 return false;
             }
 
+            //This check will be slow if there are a lot of lines in the file, so in that scenario
+            // you'd want to find some way to make a single db call to check all the lines at once.
             var accountExists = await _accountsRepository.AccountExistsWithId(reading.AccountId);
             if (!accountExists)
             {
                 return false;
             }
 
+            //Same as above, this will be slow for large files so would be better to do the 
+            // check in a single db call.
             var laterReadingExists = await _readingRepository
                                                 .ReadingExistsForAccountAtTimeOrLater(reading.AccountId,
                                                                                       reading.ReadingDateTime);
